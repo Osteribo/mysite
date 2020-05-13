@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.urls import reverse
 
-from .models import Question
+from .models import Choice, Question
 
 
 # Create your views here. will always take in "request" object

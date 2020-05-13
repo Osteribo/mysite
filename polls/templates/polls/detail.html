@@ -1,8 +1,22 @@
-<h1> {{ question.question_text }} </h1>
-<ul>
 
+<!-- show specific question -->
+<h1> {{ question.question_text }} </h1>
+
+<!-- show error message if there are any -->
+{% if error_message %} <p><strong> {{ error_message }} </strong></p> {% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    <!-- Cross Site Request Forgeries securtiy measure -->
+    {% csrf_token %}
+
+    <!-- Display our Question and Ansers to vote on -->
     {% for choice in question.choice_set.all %}
-        <li> {{ choice.choice_text }} </li>
+        <input type='radio' name="choice" id="choice{{ forloop.counter}}" value=" {{ choice.id }} " />
+        <label for=" choice{{forloop.counter}} "> {{choice.choice_text}} </label><br />
     {% endfor %}
 
-</ul>
+    <!-- Subimit the vote for an answer from above -->
+    <input type="submit" value="Vote"/>
+
+</form>
+
